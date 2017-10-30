@@ -1191,7 +1191,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     if (pindexLast == NULL)
         return nProofOfWorkLimit;
 
-	if (pindexLast->nTime > 1510113600)	// Sept 14 2017, 13:13:13 GMT
+	if (pindexLast->nTime > 1510113600)	// Nov 08 2017, 04:00 GMT
 		return DarkGravityWave(pindexLast, pblock);
 	
     // Only change once per interval

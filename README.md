@@ -11,7 +11,7 @@ What is RUPEE?
 ----------------
 
 RUPEE is a lite version of Bitcoin using scrypt as a proof-of-work algorithm.
- - 2.5 minute block targets
+ - 5 minute block targets
  - subsidy halves in 640k blocks (~3 years)
  - ~84 million total coins
  - 50 coins per block

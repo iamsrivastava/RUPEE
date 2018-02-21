@@ -1,7 +1,7 @@
 TEMPLATE = app
-TARGET = rupee-qt
+TARGET = Rupee-qt
 macx:TARGET = "RUPEE-Qt"
-VERSION = 0.8.7.5
+VERSION = 1.0.0.0
 INCLUDEPATH += src src/json src/qt
 QT += core gui network
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -134,6 +134,7 @@ QMAKE_CLEAN += $$PWD/src/leveldb/libleveldb.a; cd $$PWD/src/leveldb ; $(MAKE) cl
 
 QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter -Wstack-protector
 
+macx:QMAKE_CXXFLAGS_WARN_ON += -Wno-deprecated
 # Input
 DEPENDPATH += src src/json src/qt
 HEADERS += src/qt/bitcoingui.h \
@@ -220,7 +221,15 @@ HEADERS += src/qt/bitcoingui.h \
     src/threadsafety.h \
     src/limitedmap.h \
     src/qt/macnotificationhandler.h \
-    src/qt/splashscreen.h
+    src/qt/splashscreen.h \
+    src/Lyra2RE/Lyra2.h \
+    src/Lyra2RE/Lyra2RE.h \
+    src/Lyra2RE/Sponge.c \
+    src/Lyra2RE/sph_blake.h \
+    src/Lyra2RE/sph_groestl.h \
+    src/Lyra2RE/sph_keccak.h \
+    src/Lyra2RE/sph_skein.h \
+    src/Lyra2RE/sph_types.h
 
 SOURCES += src/qt/bitcoin.cpp \
     src/qt/bitcoingui.cpp \
@@ -291,7 +300,14 @@ SOURCES += src/qt/bitcoin.cpp \
     src/noui.cpp \
     src/leveldb.cpp \
     src/txdb.cpp \
-    src/qt/splashscreen.cpp
+    src/qt/splashscreen.cpp \
+    src/Lyra2RE/Lyra2.c \
+    src/Lyra2RE/Lyra2RE.c \
+    src/Lyra2RE/Sponge.c \
+    src/Lyra2RE/blake.c \
+    src/Lyra2RE/skein.c \
+    src/Lyra2RE/groestl.c \
+    src/Lyra2RE/keccak.c
 
 RESOURCES += src/qt/bitcoin.qrc
 

@@ -10,6 +10,7 @@
 #include "net.h"
 #include "script.h"
 #include "scrypt.h"
+#include "Lyra2RE/Lyra2RE.h"
 
 #include <list>
 
@@ -1374,7 +1375,15 @@ public:
     uint256 GetPoWHash() const
     {
         uint256 thash;
-        scrypt_1024_1_1_256(BEGIN(nVersion), BEGIN(thash));
+
+		if ((fTestNet && nTime >= 1518157800) || nTime >= 1523851200 )
+		{
+			lyra2re_hash(BEGIN(nVersion), BEGIN(thash));
+		}
+		else
+		{
+			scrypt_1024_1_1_256(BEGIN(nVersion), BEGIN(thash));
+		}
         return thash;
     }
 

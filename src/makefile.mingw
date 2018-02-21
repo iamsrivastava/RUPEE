@@ -16,20 +16,31 @@
 # to remove files.
 
 CXX ?= g++
+CC = gcc
 
 USE_UPNP:=-
 USE_IPV6:=1
 
 DEPSDIR?=/usr/local
-BOOST_SUFFIX?=-mgw46-mt-sd-1_52
+BOOST_SUFFIX?=-mgw49-mt-s-1_52
 
 INCLUDEPATHS= \
  -I"$(CURDIR)" \
- -I"$(DEPSDIR)/include"
+ -I"/c/deps/boost_1_52_0" \
+ -I"/c/deps" \
+ -I"/c/deps/secp256k1" \
+ -I"/c/deps/db-4.8.30.NC/build_unix" \
+ -I"/c/deps/openssl-1.0.1j/include" \
+ -I"/c/deps/gmp-6.0.0" \
 
 LIBPATHS= \
  -L"$(CURDIR)/leveldb" \
- -L"$(DEPSDIR)/lib"
+ -L"/c/deps/boost_1_52_0/stage/lib" \
+ -L"/c/deps/miniupnpc" \
+ -L"/c/deps/secp256k1/.libs" \
+ -L"/c/deps/db-4.8.30.NC/build_unix" \
+ -L"/c/deps/openssl-1.0.1j" \
+ -L"/c/deps/gmp-6.0.0/.libs" \
 
 LIBS= \
  -l leveldb \
@@ -47,7 +58,7 @@ DEFS=-D_MT -DWIN32 -D_WINDOWS -DBOOST_THREAD_USE_LIB -DBOOST_SPIRIT_THREADSAFE
 DEBUGFLAGS=-g
 CFLAGS=-mthreads -O2 -w -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter $(DEBUGFLAGS) $(DEFS) $(INCLUDEPATHS)
 # enable: ASLR, DEP and large address aware
-LDFLAGS=-Wl,--dynamicbase -Wl,--nxcompat -Wl,--large-address-aware
+LDFLAGS=-Wl,--dynamicbase -Wl,--nxcompat -Wl,--large-address-aware -static
 
 TESTDEFS = -DTEST_DATA_DIR=$(abspath test/data)
 
@@ -100,7 +111,14 @@ OBJS= \
     obj/bloom.o \
     obj/noui.o \
     obj/leveldb.o \
-    obj/txdb.o
+    obj/txdb.o \
+    Lyra2RE/Lyra2RE.o \
+    Lyra2RE/Lyra2.o \
+    Lyra2RE/Sponge.o \
+    Lyra2RE/blake.o \
+    Lyra2RE/groestl.o \
+    Lyra2RE/keccak.o \
+    Lyra2RE/skein.o
 
 ifdef USE_SSE2
 DEFS += -DUSE_SSE2
@@ -127,6 +145,9 @@ obj/%-sse2.o: %-sse2.cpp
 
 obj/%.o: %.cpp $(HEADERS)
 	$(CXX) -c $(CFLAGS) -o $@ $<
+    
+Lyra2RE/%.o: Lyra2RE%.c $(HEADERS)
+	$(CC) -c $(CFLAGS) -o $@ $<
 
 rupeed.exe: $(OBJS:obj/%=obj/%)
 	$(CXX) $(CFLAGS) $(LDFLAGS) -o $@ $(LIBPATHS) $^ $(LIBS)

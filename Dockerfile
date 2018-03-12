@@ -1,31 +1,4 @@
 
-Added Ashish Srivastava. Press backspace to remove.
-
-Skip to content
-Using Gmail with screen readers
-
-1 of 1,181
- 
-Docker file of rupee wallet. 
-Inbox
-x 
-
-Ashish Srivastava <me@ashishsrivastav.com>
-Attachments4:21 PM (8 hours ago)
-to me 
-Please find attachment for docker file.
-
-my rupee address is
-RNwMDVADXPain5thgwwkpvxp21ocpHg4ge
-
-
-2 Attachments
-0.4 GB (2%) of 15 GB used
-Manage
-Terms - Privacy
-Last account activity: 7 minutes ago
-Open in 1 other location  Details
-
 FROM ubuntu:16.04
 
 MAINTAINER Ashish Srivastava <me@ashishsrivastav.com>
@@ -65,5 +38,3 @@ EXPOSE 10459
 EXPOSE 10460
 
 CMD rupeed
-Dockerfile
-Displaying rupee.conf.

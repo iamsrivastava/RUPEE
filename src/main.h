@@ -1376,9 +1376,13 @@ public:
     {
         uint256 thash;
 
-		if ((fTestNet && nTime >= 1518157800) || nTime >= 1523851200 )
+		if (fTestNet && nTime >= 1518157800)
 		{
 			lyra2re_hash(BEGIN(nVersion), BEGIN(thash));
+		}
+		else if (!fTestNet && nTime >= 1523851200)
+		{
+			lyra2re2_hash(BEGIN(nVersion), BEGIN(thash));
 		}
 		else
 		{
